@@ -4,7 +4,6 @@
         <hr />
         <div class="form-group">
             <div class="d-flex justify-content-between">
-                <!-- Challenge 3 - Add drop-down filter here -->
                 <div class="form-group">
                     <label for="character-filter">Select Quotes By Character:</label>
                     <select class="form-control" id="character-filter" v-model="filterBy">
@@ -16,39 +15,20 @@
                         >{{character.name}}</option>
                     </select>
                 </div>
-                <!-- Challenge 7 - Add button to create new quote here -->
             </div>
             <div class="row row-cols-3 row-cols-md-2">
-                <div v-for="characterQuote in characterQuotes"
+                <div
+                    v-for="characterQuote in characterQuotes"
                     :key="characterQuote.quote"
                     class="col mb-4"
-                >
-                    <div class="card rounded-0">
-                        <card
-                            img-direction="left"
-                            :img-src="characterQuote.character.image"
-                            :img-alt="'image of ' + characterQuote.character.name"
-                            :class="{ 'shadow' : characterQuote.isFavorite }"
-                        >
-                            <p class="card-text">{{characterQuote.quote}}</p>
-                            <p class="card-text text-right font-italic">- {{characterQuote.character.name}}</p>
-                            <p class="card-text text-right">
-                                <!-- Challenge 2 - Add favorite toggle here -->
-                                <button
-                                    @click="updateFavorite(characterQuote.id)"
-                                    class="btn btn-default btn-sm"
-                                    v-b-tooltip.hover
-                                    title="like"
-                                    style="font-size: 1.5rem;"
-                                >
-                                    <span class="sr-only">like</span>
-                                    <i v-if="!characterQuote.isFavorite" class="far fa-heart"></i>
-                                    <i v-else class="fas fa-heart text-danger"></i>
-                                </button>
-                            </p>
-                        </card>
-                    </div>
-                </div>
+                ></div>
+                <quote
+                    :character-img="characterQuote.character.image"
+                    :character-name="characterQuote.character.name"
+                    :quote="characterQuote.quote"
+                    :quote-id="characterQuote.id"
+                    :favorite="characterQuote.isFavorite"
+                ></quote>
             </div>
         </div>
         <!-- Challenge 7 - Add modal to create new quote here -->
@@ -58,7 +38,7 @@
 <script>
     import characters from '../data/characters';
     import quotes from '../data/quotes';
-    import Card from '../components/Card';
+    import Card from '../components/Card'
 
     export default {
         name: "quotes",
@@ -89,7 +69,7 @@
             }
         },
         components: {
-            Card
+            Quote
         }
     };
 </script>
